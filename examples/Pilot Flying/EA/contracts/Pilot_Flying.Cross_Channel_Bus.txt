@@ -1,0 +1,5 @@
+       eq ffT: bool = Agree_Nodes.fT(2);
+          
+      guarantee "O_Is_Pre_I" : true -> (O = if ffT then pre(I) else Get_Property(this, QS_Properties::Init_Bool));   
+        
+ 

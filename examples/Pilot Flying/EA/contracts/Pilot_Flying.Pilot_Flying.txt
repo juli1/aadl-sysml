@@ -1,0 +1,46 @@
+      node PRESSED (p : bool) returns (r : bool);
+       let r = Agree_Nodes.Rise(p); tel;
+           
+     node CHANGED (p : bool) returns (r : bool);
+      let r = Agree_Nodes.Changed(p); tel;
+      
+     eq Initializing : bool;
+     
+      -- Transfer Switch presses must be long enough to be seen by both sides
+      assume "No Short Pressses": Agree_Nodes.True_At_Least(TS, 7);
+      assume "No Rapid Pressses": Agree_Nodes.True_At_Least(not TS, 7);
+          
+ 	   ----------------------------------------------------------------------------------------------------
+     -- R1. At least one side shall always be the pilot flying side.
+     ----------------------------------------------------------------------------------------------------	
+ 	   guarantee "At Least One Side Pilot Flying" : (LPFS or RPFS);
+  	  
+     ----------------------------------------------------------------------------------------------------
+     -- R2. Both sides shall agree on the pilot flying side 
+     -- except while the system is switching sides.
+     ----------------------------------------------------------------------------------------------------
+     guarantee "Agree On Pilot Flying Side" : 
+         (Agree_Nodes.Duration(not Initializing and not PRESSED(TS)) > 24 => (LPFS = not RPFS)); 
+       
+     ----------------------------------------------------------------------------------------------------
+     -- R3. The pilot can always change the pilot flying side
+     --     except while the system is switching sides.  
+     ----------------------------------------------------------------------------------------------------	
+ 	   guarantee "Pilot Can Change Active Side" :
+ 	      Agree_Nodes.Since(Agree_Nodes.Duration(pre(not Initializing and not PRESSED(TS))) > 45 and
+ 	      		            PRESSED(TS)) = 7 =>
+ 	      Agree_Nodes.Within(Agree_Nodes.Rise(LPFS) or Agree_Nodes.Rise(RPFS),7);
+          
+    ----------------------------------------------------------------------------------------------------
+    -- R4. The system shall start with the left side as the pilot flying side.
+    ----------------------------------------------------------------------------------------------------
+    guarantee "Left Side Initial Pilot Flying Side" :
+         (LPFS -> true) and ((not RPFS) -> true);
+         
+    ----------------------------------------------------------------------------------------------------
+    -- R5. If the transfer switch is not pressed the system shall not change the pilot flying side.
+    ----------------------------------------------------------------------------------------------------
+    guarantee "Pilot Flying Side Unchanged Unless Transfer Switch Pressed" : 
+        (Agree_Nodes.Duration(not Initializing and not PRESSED(TS)) > 25 => 
+           (not (CHANGED(RPFS) or CHANGED(LPFS))));
+ 

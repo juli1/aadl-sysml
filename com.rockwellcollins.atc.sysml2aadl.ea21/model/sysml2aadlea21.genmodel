@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.rockwellcollins.atc.sysml2aadl.ea21/src-gen"
+    modelPluginID="com.rockwellcollins.atc.sysml2aadl.ea21" modelName="Sysml2aadlea21"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>sysml2aadlea21.ecore</foreignModel>
+  <genPackages prefix="ea21" basePackage="com.rockwellcollins.atc.sysml2aadl" ecorePackage="sysml2aadlea21.ecore#/">
+    <nestedGenPackages prefix="UML" disposableProviderFactory="true" ecorePackage="sysml2aadlea21.ecore#//UML">
+      <genClasses image="false" ecoreClass="sysml2aadlea21.ecore#//UML/Element"/>
+      <genClasses image="false" ecoreClass="sysml2aadlea21.ecore#//UML/NamedElement">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sysml2aadlea21.ecore#//UML/NamedElement/name"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Model">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Model/packagedElement"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Model/port"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Model/data"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Model/block"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Model/FlowPort"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Model/AADL__Property"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Package">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Package/packagedElement"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Class">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/ownedAttribute"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/ownedPort"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/aadlData"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/implements"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/ownedConnector"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/sysmlBlock"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/ownedBehavior"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/ownedRule"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/ownedParameter"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Class/bodyCondition"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Port">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Port/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Port/aadlPort"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Port/sysmlPort"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Property">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Property/qualifier"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Property/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Property/allAADLProperty"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Realization">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Realization/supplier"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Realization/client"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Connector">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Connector/end"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/ConnectorEnd">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/ConnectorEnd/role"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/StateMachine">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/StateMachine/region"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/StateMachine/nestedClassifier"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/StateMachine/subvertex"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/StateMachine/transition"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Region">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Region/subvertex"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Region/transition"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/State">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/State/incoming"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/State/outgoing"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/State/entry"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/State/doActivity"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Pseudostate"/>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/FinalState"/>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Transition">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Transition/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Transition/target"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Transition/guard"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/TransitionEndpoint"/>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Constraint">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Constraint/specification"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/OpaqueExpression">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sysml2aadlea21.ecore#//UML/OpaqueExpression/body"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//UML/Behavior">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//UML/Behavior/ownedOperation"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="AADL_Elements" disposableProviderFactory="true" ecorePackage="sysml2aadlea21.ecore#//AADL_Elements">
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//AADL_Elements/port">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sysml2aadlea21.ecore#//AADL_Elements/port/direction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//AADL_Elements/port/base_Port"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//AADL_Elements/data">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//AADL_Elements/data/base_Class"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="SysML" disposableProviderFactory="true" ecorePackage="sysml2aadlea21.ecore#//SysML">
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//SysML/block">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//SysML/block/base_Class"/>
+      </genClasses>
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//SysML/FlowPort">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sysml2aadlea21.ecore#//SysML/FlowPort/direction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//SysML/FlowPort/base_Port"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Thecustomprofile" disposableProviderFactory="true"
+        ecorePackage="sysml2aadlea21.ecore#//thecustomprofile">
+      <genClasses ecoreClass="sysml2aadlea21.ecore#//thecustomprofile/AADL__Property">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference sysml2aadlea21.ecore#//thecustomprofile/AADL__Property/base_Property"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sysml2aadlea21.ecore#//thecustomprofile/AADL__Property/AADL__Property"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

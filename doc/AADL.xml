@@ -1,0 +1,108 @@
+<MDG.Technology version="1.0"><Documentation id="AADL" name="AADL" version="0.1" notes="First Export Attempt"/><UMLProfiles><UMLProfile profiletype="uml2">
+			<Documentation id="321A91EE-D" name="AADL_Elements" version="0.1" notes="AADL_Elements"/>
+			<Content>
+				<Stereotypes>
+					<Stereotype name="bus" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="bus_access" notes="" generalizes="feature" baseStereotypes="feature">
+						<TaggedValues>
+							<Tag name="accessType" type="enumeration" description="" unit="" values="required,provided" default=""/>
+						</TaggedValues>
+					</Stereotype>
+					<Stereotype name="component" notes="" generalizes="SysML1.3::block" baseStereotypes="SysML1.3::block">
+						<TaggedValues>
+							<Tag name="name" type="string" description="" unit="" values="" default=""/>
+						</TaggedValues>
+					</Stereotype>
+					<Stereotype name="data" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="dataEventPort" notes="" generalizes="port" baseStereotypes="port"/>
+					<Stereotype name="dataPort" notes="" generalizes="port" baseStereotypes="port"/>
+					<Stereotype name="data_access" notes="" generalizes="feature" baseStereotypes="feature">
+						<TaggedValues>
+							<Tag name="accessType" type="enumeration" description="" unit="" values="required,provided" default=""/>
+						</TaggedValues>
+					</Stereotype>
+					<Stereotype name="device" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="eventPort" notes="" generalizes="port" baseStereotypes="port"/>
+					<Stereotype name="feature" notes="" generalizes="SysML1.3::FlowPort" baseStereotypes="SysML1.3::FlowPort"/>
+					<Stereotype name="memory" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="port" notes="" generalizes="feature" baseStereotypes="feature"/>
+					<Stereotype name="process" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="processor" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="system" notes="" generalizes="component" baseStereotypes="component"/>
+					<Stereotype name="thread" notes="" generalizes="component" baseStereotypes="component"/>
+				</Stereotypes>
+				<TaggedValueTypes/>
+			</Content>
+		</UMLProfile>
+	</UMLProfiles><DiagramProfile><UMLProfile profiletype="uml2">
+			<Documentation id="31ED3395-1" name="AADL_Diagrams" version="0.1" notes="AADL_Diagrams"/>
+			<Content>
+				<Stereotypes>
+					<Stereotype name="aadl_bdd" notes="">
+						<AppliesTo>
+							<Apply type="Diagram_BlockDefinition">
+								<Property name="alias" value="AADL BDD"/>
+								<Property name="diagramID" value="aadl"/>
+								<Property name="toolbox" value="AADL_Toolbox"/>
+							</Apply>
+						</AppliesTo>
+					</Stereotype>
+					<Stereotype name="aadl_ibd" notes="">
+						<AppliesTo>
+							<Apply type="Diagram_InternalBlockDefinition">
+								<Property name="alias" value="AADL IBD"/>
+								<Property name="diagramID" value="aadl"/>
+								<Property name="toolbox" value="AADL_Toolbox"/>
+							</Apply>
+						</AppliesTo>
+					</Stereotype>
+				</Stereotypes>
+				<TaggedValueTypes/>
+			</Content>
+		</UMLProfile>
+	</DiagramProfile><UIToolboxes><UMLProfile profiletype="uml2">
+			<Documentation id="9DC3AA77-9" name="AADL_Toolbox" version="0.1" alias="AADL" notes="AADL elements for system architecture."/>
+			<Content>
+				<Stereotypes>
+					<Stereotype name="AADL System Elements" notes="System elements for AADL ">
+						<AppliesTo>
+							<Apply type="ToolboxPage"/>
+						</AppliesTo>
+						<TaggedValues>
+							<Tag name="AADL_Elements::data_access(SysML1.3::Port)" type="" description="" unit="" values="" default="Data Access"/>
+							<Tag name="AADL_Elements::system(UML::Class)" type="" description="" unit="" values="" default="System"/>
+							<Tag name="isCollapsed" type="boolean" description="" unit="" values="true,false" default="false"/>
+							<Tag name="UML::Connector" type="" description="" unit="" values="" default="Connector"/>
+							<Tag name="UML::Generalization" type="" description="" unit="" values="" default="Generalization"/>
+						</TaggedValues>
+					</Stereotype>
+					<Stereotype name="AADL Software Elements" notes="">
+						<AppliesTo>
+							<Apply type="ToolboxPage"/>
+						</AppliesTo>
+						<TaggedValues>
+							<Tag name="AADL_Elements::data(UML::Class)" type="" description="" unit="" values="" default="Data"/>
+							<Tag name="AADL_Elements::process(UML::Class)" type="" description="" unit="" values="" default="Process"/>
+							<Tag name="AADL_Elements::thread(UML::Class)" type="" description="" unit="" values="" default="Thread"/>
+							<Tag name="isCollapsed" type="boolean" description="" unit="" values="true,false" default="false"/>
+						</TaggedValues>
+					</Stereotype>
+					<Stereotype name="AADL Hardware Elements" notes="">
+						<AppliesTo>
+							<Apply type="ToolboxPage"/>
+						</AppliesTo>
+						<TaggedValues>
+							<Tag name="AADL_Elements::bus(UML::Class)" type="" description="" unit="" values="" default="Bus"/>
+							<Tag name="AADL_Elements::bus_access(SysML1.3::Port)" type="" description="" unit="" values="" default="Bus Access"/>
+							<Tag name="AADL_Elements::device(UML::Class)" type="" description="" unit="" values="" default="Device"/>
+							<Tag name="AADL_Elements::memory(UML::Class)" type="" description="" unit="" values="" default="Memory"/>
+							<Tag name="AADL_Elements::port(SysML1.3::Port)" type="" description="" unit="" values="" default="Port"/>
+							<Tag name="AADL_Elements::processor(UML::Class)" type="" description="" unit="" values="" default="Processor"/>
+							<Tag name="isCollapsed" type="boolean" description="" unit="" values="true,false" default="false"/>
+						</TaggedValues>
+					</Stereotype>
+				</Stereotypes>
+				<TaggedValueTypes/>
+			</Content>
+		</UMLProfile>
+	</UIToolboxes></MDG.Technology>

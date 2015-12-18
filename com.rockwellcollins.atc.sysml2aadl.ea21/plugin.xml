@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EA%20Import -->
+      <package
+            uri="http://schema.omg.org/spec/UML/2.1"
+            class="com.rockwellcollins.atc.sysml2aadl.ea21.UML.UMLPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EA%20Import -->
+      <package
+            uri="http://www.sparxsystems.com/profiles/AADL_Elements/0.1"
+            class="com.rockwellcollins.atc.sysml2aadl.ea21.AADL_Elements.AADL_ElementsPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EA%20Import -->
+      <package
+            uri="http://www.sparxsystems.com/profiles/SysML1.3/1.3"
+            class="com.rockwellcollins.atc.sysml2aadl.ea21.SysML.SysMLPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus">
+       <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+           <menu id="com.rockwellcollins.atc.sysml2aadl.menus.sysmlMenu" label="SysML">
+	       </menu>
+       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+       <actionSet
+             id="com.rockwellcollins.atc.sysml2aadl.actionSet"
+             label="EA21 Action Set"
+             visible="true">
+			<action
+         class="com.rockwellcollins.atc.sysml2aadl.Action"
+         id="com.rockwellcollins.atc.sysml2aadl.action"
+         label="Import from Enterprise Architect XMI 2.1"
+         menubarPath="com.rockwellcollins.atc.sysml2aadl.menus.sysmlMenu/"
+         tooltip="Import from Enterprise Architect XMI 2.1">
+			</action>
+		</actionSet>
+   </extension>
+   
+null
+null
+null
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated sysml2aadlea21 -->
+      <package
+            uri="http://www.sparxsystems.com/profiles/thecustomprofile/1.0"
+            class="com.rockwellcollins.atc.sysml2aadl.ea21.thecustomprofile.ThecustomprofilePackage"
+            genModel="model/sysml2aadlea21.genmodel"/>
+   </extension>
+</plugin>

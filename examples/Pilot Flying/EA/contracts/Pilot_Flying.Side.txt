@@ -1,0 +1,11 @@
+     eq ttF: bool = Agree_Nodes.tF(2);
+       
+      guarantee "PFS_Correct" : true ->   
+        (PFS = if ttF then
+		              Get_Property(this, QS_Properties::Primary_Side)
+	             else if (pre(PFS) and Agree_Nodes.Rise(OSPF)) then
+		              false -- when the other side is observed becoming PFS
+	             else if (Agree_Nodes.Duration(not ttF and not(pre(PFS))) > 3 and Agree_Nodes.Rise(TS)) then
+		              true --  when TS is pressed while listening
+	             else pre(PFS));         	
+ 

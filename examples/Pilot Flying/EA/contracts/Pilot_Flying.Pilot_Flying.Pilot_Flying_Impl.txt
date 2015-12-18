@@ -1,0 +1,23 @@
+       synchrony : 0;
+           
+      -- A subcomponent is initializing if its clock has not ticked once     
+      eq LS_Initializing : bool = Agree_Nodes.ctF(1, LS._CLK);
+      eq RS_Initializing : bool = Agree_Nodes.ctF(1, RS._CLK);
+      eq LR_Initializing : bool = Agree_Nodes.ctF(1, LR._CLK);
+      eq RL_Initializing : bool = Agree_Nodes.ctF(1, RL._CLK);
+      
+      -- The system is initializing if any component is initializing
+      assert(Initializing = LS_Initializing or RS_Initializing or
+      	                    LR_Initializing or RL_Initializing);
+      	                  
+      -- Set the outputs of each subcomponent during intialization  
+      assert LS_Initializing => LS.PFS;
+      assert RS_Initializing => not RS.PFS;
+      assert LR_Initializing => LR.O;
+      assert RL_Initializing => not RL.O;
+    
+     ----------------------------------------------------------------------------------------------------
+     -- Auxiliary lemma to speed up higher level proofs
+     ----------------------------------------------------------------------------------------------------
+	   lemma "Side Bus Consistency" : Agree_Nodes.Duration(LS.PFS and RS.PFS and RL.O and LR.O) <  10;
+ 

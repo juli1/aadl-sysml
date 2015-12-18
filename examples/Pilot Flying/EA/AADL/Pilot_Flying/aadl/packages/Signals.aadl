@@ -1,0 +1,148 @@
+-- SysML Source: C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\Pilot_Flying.xml
+-- Created: 2015.07.20.13.00.32
+package Signals
+public
+with Base_Types;
+  system Fall
+    features
+      O: out data port Base_Types::Boolean;
+      I: in data port Base_Types::Boolean;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Signals.Fall.txt
+         eq ttF: bool = Agree_Nodes.tF(2);
+          
+      guarantee "Fall_Correct" : O = if ttF then false else (false -> pre(I) and not I);   
+                  
+ 
+ 
+ **};
+  end Fall;
+  
+  system implementation Fall.Fall_Impl
+    annex agree{** 
+ 
+    eq s_Step : bool;
+    eq s_Start : bool;
+    eq s_Stop : bool;
+
+    assert s_Step => not (s_Start or s_Stop);
+    assert s_Start => not (s_Step or s_Stop);
+    assert s_Stop => not (s_Step or s_Start);
+
+    eq prev_I : bool;
+
+    assert s_Start -> true;
+
+
+    eq T1: bool = (false -> (pre(s_Start)));
+
+    assert T1  => s_Step;
+
+    assert T1 => (O = false);
+
+    assert T1 => (prev_I = I);
+
+
+    eq T2: bool = (false -> (pre(s_Step)));
+
+    assert T2  => s_Step;
+
+    assert T2 => (O = (pre(prev_I) and not I));
+
+    assert T2 => (prev_I = I);
+
+
+
+    assert true -> (not (T2 or T1) => (prev_I = pre(prev_I)));
+
+    assert true -> (not (T1 or T2) => (O = pre(O)));
+
+    assert true -> (not (T1 or T2) => 
+                 (s_Stop = pre(s_Stop)) and
+                 (s_Start = pre(s_Start)) and
+                 (s_Step = pre(s_Step)));
+
+    lemma "valid_state" : s_Stop or s_Start or s_Step;
+
+--Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Signals.Fall.txt
+  
+    assert "O Initially False" : (O = false) -> true;
+    
+    lemma "Stop Unreachable" : not s_Stop;
+    
+ 
+ **};
+  end Fall.Fall_Impl;
+  
+  system Rise
+    features
+      O: out data port Base_Types::Boolean;
+      I: in data port Base_Types::Boolean;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Signals.Rise.txt
+         eq ttF: bool = Agree_Nodes.tF(2);
+          
+      guarantee "Rise_Correct" : O = if ttF then false else (false -> not pre(I) and I);   
+                                
+ 
+ 
+ **};
+  end Rise;
+  
+  system implementation Rise.Rise_Impl
+    annex agree{** 
+ 
+    eq s_Step : bool;
+    eq s_Start : bool;
+    eq s_Stop : bool;
+
+    assert s_Step => not (s_Start or s_Stop);
+    assert s_Start => not (s_Step or s_Stop);
+    assert s_Stop => not (s_Step or s_Start);
+
+    eq prev_I : bool;
+
+    assert s_Start -> true;
+
+
+    eq T1: bool = (false -> (pre(s_Start)));
+
+    assert T1  => s_Step;
+
+    assert T1 => (O = false);
+
+    assert T1 => (prev_I = I);
+
+
+    eq T2: bool = (false -> (pre(s_Step)));
+
+    assert T2  => s_Step;
+
+    assert T2 => (O = (not pre(prev_I) and I));
+
+    assert T2 => (prev_I = I);
+
+
+
+    assert true -> (not (T2 or T1) => (prev_I = pre(prev_I)));
+
+    assert true -> (not (T1 or T2) => (O = pre(O)));
+
+    assert true -> (not (T1 or T2) => 
+                 (s_Stop = pre(s_Stop)) and
+                 (s_Start = pre(s_Start)) and
+                 (s_Step = pre(s_Step)));
+
+    lemma "valid_state" : s_Stop or s_Start or s_Step;
+
+--Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Signals.Rise.txt
+  
+    assert "O Initially False" : (O = false) -> true;
+    
+    lemma "Stop Unreachable" : not s_Stop;
+    
+ 
+ **};
+  end Rise.Rise_Impl;
+private
+end Signals;

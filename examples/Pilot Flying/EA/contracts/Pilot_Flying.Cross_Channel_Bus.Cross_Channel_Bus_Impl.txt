@@ -1,0 +1,2 @@
+       lemma "Stop_Unreachable": not s_Stop;
+ 

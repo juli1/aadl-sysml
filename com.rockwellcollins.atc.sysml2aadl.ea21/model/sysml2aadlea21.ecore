@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ea21" nsURI="http://www.rockwellcollins.com/atc/sosite/eaimport"
+    nsPrefix="eaimport">
+  <eSubpackages name="UML" nsURI="http://schema.omg.org/spec/UML/2.1" nsPrefix="uml">
+    <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Model" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="packagedElement" upperBound="-1"
+          eType="#//UML/Package" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="port" upperBound="-1"
+          eType="#//AADL_Elements/port" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1"
+          eType="#//AADL_Elements/data" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="block" upperBound="-1"
+          eType="#//SysML/block" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="FlowPort" upperBound="-1"
+          eType="#//SysML/FlowPort" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="AADL__Property" upperBound="-1"
+          eType="#//thecustomprofile/AADL__Property" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Package" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="packagedElement" upperBound="-1"
+          eType="#//UML/Element" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//UML/DifferentTypes">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAttribute" upperBound="-1"
+          eType="#//UML/Property" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPort" upperBound="-1"
+          eType="#//UML/Port" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aadlData" eType="#//AADL_Elements/data"
+          eOpposite="#//AADL_Elements/data/base_Class"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="implements" eType="#//UML/Realization"
+          eOpposite="#//UML/Realization/client"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedConnector" upperBound="-1"
+          eType="#//UML/Connector" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sysmlBlock" eType="#//SysML/block"
+          eOpposite="#//SysML/block/base_Class"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBehavior" upperBound="-1"
+          eType="#//UML/StateMachine" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedRule" upperBound="-1"
+          eType="#//UML/Constraint" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameter" upperBound="-1"
+          eType="#//UML/Class" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bodyCondition" upperBound="-1"
+          eType="#//UML/Constraint" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Port" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//UML/DifferentTypes"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aadlPort" eType="#//AADL_Elements/port"
+          eOpposite="#//AADL_Elements/port/base_Port"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sysmlPort" eType="#//SysML/FlowPort"
+          eOpposite="#//SysML/FlowPort/base_Port"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" upperBound="-1"
+          eType="#//UML/LiteralInteger" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" upperBound="-1"
+          eType="#//UML/LiteralInteger" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Property" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="qualifier" upperBound="-1"
+          eType="#//UML/Port" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//UML/DifferentTypes"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="allAADLProperty" upperBound="-1"
+          eType="#//thecustomprofile/AADL__Property" eOpposite="#//thecustomprofile/AADL__Property/base_Property"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lowerValue" upperBound="-1"
+          eType="#//UML/LiteralInteger" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="upperValue" upperBound="-1"
+          eType="#//UML/LiteralInteger" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Realization" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="supplier" eType="#//UML/Class"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="client" eType="#//UML/Class"
+          eOpposite="#//UML/Class/implements"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Connector" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="end" upperBound="-1"
+          eType="#//UML/ConnectorEnd" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ConnectionAADLProperty"
+          upperBound="-1" eType="#//thecustomprofile/AADL__Property" eOpposite="#//thecustomprofile/AADL__Property/base_Connector"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectorEnd" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="role" eType="#//UML/Port"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StateMachine" eSuperTypes="#//UML/TransitionEndpoint">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="region" upperBound="-1"
+          eType="#//UML/Region" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="nestedClassifier" upperBound="-1"
+          eType="#//UML/StateMachine" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="subvertex" upperBound="-1"
+          eType="#//UML/State" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+          eType="#//UML/Transition" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Region" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="subvertex" upperBound="-1"
+          eType="#//UML/State" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+          eType="#//UML/Transition" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="State" eSuperTypes="#//UML/TransitionEndpoint">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" upperBound="-1"
+          eType="#//UML/Transition" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" upperBound="-1"
+          eType="#//UML/Transition" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="entry" eType="#//UML/Behavior"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="doActivity" eType="#//UML/Behavior"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Pseudostate" eSuperTypes="#//UML/State"/>
+    <eClassifiers xsi:type="ecore:EClass" name="FinalState" eSuperTypes="#//UML/State"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//UML/NamedElement">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//UML/TransitionEndpoint"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//UML/TransitionEndpoint"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//UML/Constraint"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="effect" eType="#//UML/OpaqueBehavior"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TransitionEndpoint" eSuperTypes="#//UML/NamedElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="specification" eType="#//UML/OpaqueExpression"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OpaqueExpression">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Behavior" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedOperation" upperBound="-1"
+          eType="#//UML/Class" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OpaqueBehavior" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DifferentTypes" eSuperTypes="#//UML/NamedElement"/>
+    <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" eSuperTypes="#//UML/DifferentTypes">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="generalization" eType="#//UML/Generalization"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Generalization" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="general" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LiteralInteger" eSuperTypes="#//UML/Element">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="AADL_Elements" nsURI="http://www.sparxsystems.com/profiles/AADL_Elements/0.1"
+      nsPrefix="AADL_Elements">
+    <eClassifiers xsi:type="ecore:EClass" name="port">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="base_Port" eType="#//UML/Port"
+          eOpposite="#//UML/Port/aadlPort"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="data">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="base_Class" eType="#//UML/Class"
+          eOpposite="#//UML/Class/aadlData"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="SysML" nsURI="http://www.sparxsystems.com/profiles/SysML1.3/1.3"
+      nsPrefix="SysML1.3">
+    <eClassifiers xsi:type="ecore:EClass" name="block">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="base_Class" eType="#//UML/Class"
+          eOpposite="#//UML/Class/sysmlBlock"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FlowPort">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="base_Port" eType="#//UML/Port"
+          eOpposite="#//UML/Port/sysmlPort"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="thecustomprofile" nsURI="http://www.sparxsystems.com/profiles/thecustomprofile/1.0"
+      nsPrefix="thecustomprofile">
+    <eClassifiers xsi:type="ecore:EClass" name="AADL__Property">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="base_Property" upperBound="-1"
+          eType="#//UML/Property" eOpposite="#//UML/Property/allAADLProperty"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="AADL__Property" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="base_Connector" upperBound="-1"
+          eType="#//UML/Connector" eOpposite="#//UML/Connector/ConnectionAADLProperty"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

@@ -1,0 +1,325 @@
+-- SysML Source: C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\Pilot_Flying.xml
+-- Created: 2015.07.20.13.00.32
+package Pilot_Flying
+public
+with Base_Types,Signals,QS_Properties;
+  system Cross_Channel_Bus
+    features
+      I: in data port Base_Types::Boolean;
+      O: out data port Base_Types::Boolean;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Cross_Channel_Bus.txt
+        eq ffT: bool = Agree_Nodes.fT(2);
+          
+      guarantee "O_Is_Pre_I" : true -> (O = if ffT then pre(I) else Get_Property(this, QS_Properties::Init_Bool));   
+        
+ 
+ **};
+  end Cross_Channel_Bus;
+  
+  system implementation Cross_Channel_Bus.Cross_Channel_Bus_Impl
+    annex agree{** 
+ 
+    eq s_Step : bool;
+    eq s_Start : bool;
+    eq s_Stop : bool;
+
+    assert s_Step => not (s_Start or s_Stop);
+    assert s_Start => not (s_Step or s_Stop);
+    assert s_Stop => not (s_Step or s_Start);
+
+    eq prev_I : bool;
+
+    assert s_Start -> true;
+
+
+    eq T1: bool = (false -> (pre(s_Start)));
+
+    assert T1  => s_Step;
+
+    assert T1 => (O = ( Get_Property(this, QS_Properties::Init_Bool)));
+
+    assert T1 => (prev_I = I);
+
+
+    eq T2: bool = (false -> (pre(s_Step)));
+
+    assert T2  => s_Step;
+
+    assert T2 => (O = pre(prev_I));
+
+    assert T2 => (prev_I = I);
+
+
+
+    assert true -> (not (T2 or T1) => (prev_I = pre(prev_I)));
+
+    assert true -> (not (T1 or T2) => (O = pre(O)));
+
+    assert true -> (not (T1 or T2) => 
+                 (s_Stop = pre(s_Stop)) and
+                 (s_Start = pre(s_Start)) and
+                 (s_Step = pre(s_Step)));
+
+    lemma "valid_state" : s_Stop or s_Start or s_Step;
+
+--Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Cross_Channel_Bus.txt
+        lemma "Stop_Unreachable": not s_Stop;
+ 
+ **};
+  end Cross_Channel_Bus.Cross_Channel_Bus_Impl;
+  
+  system Pilot_Flying
+    features
+      LPFS: out data port Base_Types::Boolean;
+      RPFS: out data port Base_Types::Boolean;
+      TS: in data port Base_Types::Boolean;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Pilot_Flying.txt
+       node PRESSED (p : bool) returns (r : bool);
+       let r = Agree_Nodes.Rise(p); tel;
+           
+     node CHANGED (p : bool) returns (r : bool);
+      let r = Agree_Nodes.Changed(p); tel;
+      
+     eq Initializing : bool;
+     
+      -- Transfer Switch presses must be long enough to be seen by both sides
+      assume "No Short Pressses": Agree_Nodes.True_At_Least(TS, 7);
+      assume "No Rapid Pressses": Agree_Nodes.True_At_Least(not TS, 7);
+          
+ 	   ----------------------------------------------------------------------------------------------------
+     -- R1. At least one side shall always be the pilot flying side.
+     ----------------------------------------------------------------------------------------------------	
+ 	   guarantee "At Least One Side Pilot Flying" : (LPFS or RPFS);
+  	  
+     ----------------------------------------------------------------------------------------------------
+     -- R2. Both sides shall agree on the pilot flying side 
+     -- except while the system is switching sides.
+     ----------------------------------------------------------------------------------------------------
+     guarantee "Agree On Pilot Flying Side" : 
+         (Agree_Nodes.Duration(not Initializing and not PRESSED(TS)) > 24 => (LPFS = not RPFS)); 
+       
+     ----------------------------------------------------------------------------------------------------
+     -- R3. The pilot can always change the pilot flying side
+     --     except while the system is switching sides.  
+     ----------------------------------------------------------------------------------------------------	
+ 	   guarantee "Pilot Can Change Active Side" :
+ 	      Agree_Nodes.Since(Agree_Nodes.Duration(pre(not Initializing and not PRESSED(TS))) > 45 and
+ 	      		            PRESSED(TS)) = 7 =>
+ 	      Agree_Nodes.Within(Agree_Nodes.Rise(LPFS) or Agree_Nodes.Rise(RPFS),7);
+          
+    ----------------------------------------------------------------------------------------------------
+    -- R4. The system shall start with the left side as the pilot flying side.
+    ----------------------------------------------------------------------------------------------------
+    guarantee "Left Side Initial Pilot Flying Side" :
+         (LPFS -> true) and ((not RPFS) -> true);
+         
+    ----------------------------------------------------------------------------------------------------
+    -- R5. If the transfer switch is not pressed the system shall not change the pilot flying side.
+    ----------------------------------------------------------------------------------------------------
+    guarantee "Pilot Flying Side Unchanged Unless Transfer Switch Pressed" : 
+        (Agree_Nodes.Duration(not Initializing and not PRESSED(TS)) > 25 => 
+           (not (CHANGED(RPFS) or CHANGED(LPFS))));
+ 
+ **};
+  end Pilot_Flying;
+  
+  system implementation Pilot_Flying.Pilot_Flying_Impl
+    subcomponents
+      LR: system Cross_Channel_Bus {
+        QS_Properties::Clock_Name => "CLK2";
+        QS_Properties::Init_Bool => true;
+        };
+      LS: system Side.Side_Impl {
+        QS_Properties::Clock_Name => "CLK1";
+        QS_Properties::Primary_Side => true;
+        };
+      RL: system Cross_Channel_Bus {
+        QS_Properties::Clock_Name => "CLK4";
+        QS_Properties::Init_Bool => false;
+        };
+      RS: system Side.Side_Impl {
+        QS_Properties::Clock_Name => "CLK3";
+        QS_Properties::Primary_Side => false;
+        };
+    connections
+      TS_to_LS: port TS -> LS.TS;
+      TS_to_RS: port TS -> RS.TS;
+      LR_to_RS: port LR.O -> RS.OSPF;
+      LS_to_PF: port LS.PFS -> LPFS;
+      LS_to_LR: port LS.PFS -> LR.I;
+      RL_to_LS: port RL.O -> LS.OSPF;
+      RS_to_PF: port RS.PFS -> RPFS;
+      RS_to_RL: port RS.PFS -> RL.I;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Pilot_Flying.txt
+        synchrony : 0;
+           
+      -- A subcomponent is initializing if its clock has not ticked once     
+      eq LS_Initializing : bool = Agree_Nodes.ctF(1, LS._CLK);
+      eq RS_Initializing : bool = Agree_Nodes.ctF(1, RS._CLK);
+      eq LR_Initializing : bool = Agree_Nodes.ctF(1, LR._CLK);
+      eq RL_Initializing : bool = Agree_Nodes.ctF(1, RL._CLK);
+      
+      -- The system is initializing if any component is initializing
+      assert(Initializing = LS_Initializing or RS_Initializing or
+      	                    LR_Initializing or RL_Initializing);
+      	                  
+      -- Set the outputs of each subcomponent during intialization  
+      assert LS_Initializing => LS.PFS;
+      assert RS_Initializing => not RS.PFS;
+      assert LR_Initializing => LR.O;
+      assert RL_Initializing => not RL.O;
+    
+     ----------------------------------------------------------------------------------------------------
+     -- Auxiliary lemma to speed up higher level proofs
+     ----------------------------------------------------------------------------------------------------
+	   lemma "Side Bus Consistency" : Agree_Nodes.Duration(LS.PFS and RS.PFS and RL.O and LR.O) <  10;
+ 
+ **};
+  end Pilot_Flying.Pilot_Flying_Impl;
+  
+  system Pilot_Flying_Side_Logic
+    features
+      PFS: out data port Base_Types::Boolean;
+      riseOSPF: in data port Base_Types::Boolean;
+      riseTS: in data port Base_Types::Boolean;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Pilot_Flying_Side_Logic.txt
+        eq ttF: bool = Agree_Nodes.tF(2);
+       
+      guarantee "PFS_Correct" : true ->   
+        (PFS = if ttF then
+		              Get_Property(this, QS_Properties::Primary_Side)
+	             else if (pre(PFS) and riseOSPF) then
+		              false -- when the other side is observed becoming PFS
+	             else if (Agree_Nodes.Duration(not ttF and not(pre(PFS))) > 3 and riseTS) then
+		              true --  when TS is pressed while listening
+	             else pre(PFS));
+ 
+ **};
+  end Pilot_Flying_Side_Logic;
+  
+  system implementation Pilot_Flying_Side_Logic.Pilot_Flying_Side_Logic_Impl
+    annex agree{** 
+ 
+    eq s_Inhibited : bool;
+    eq s_Listening : bool;
+    eq s_Pilot_Flying : bool;
+    eq s_Start : bool;
+    eq s_Stop : bool;
+
+    assert s_Inhibited => not (s_Listening or s_Pilot_Flying or s_Start or s_Stop);
+    assert s_Listening => not (s_Inhibited or s_Pilot_Flying or s_Start or s_Stop);
+    assert s_Pilot_Flying => not (s_Inhibited or s_Listening or s_Start or s_Stop);
+    assert s_Start => not (s_Inhibited or s_Listening or s_Pilot_Flying or s_Stop);
+    assert s_Stop => not (s_Inhibited or s_Listening or s_Pilot_Flying or s_Start);
+
+    eq inhibit_count : int;
+
+    assert s_Start -> true;
+
+
+    eq T6: bool = (false -> (pre(s_Listening) and riseTS));
+
+    assert T6  => s_Pilot_Flying;
+
+    assert T6 => (PFS = true);
+
+
+    eq T1: bool = (false -> (pre(s_Start) and  Get_Property(this, QS_Properties::Primary_Side)));
+
+    assert T1  => s_Pilot_Flying;
+
+    assert T1 => (PFS = true);
+
+
+    eq T2: bool = (false -> (pre(s_Start) and  not Get_Property(this, QS_Properties::Primary_Side)));
+
+    assert T2  => s_Inhibited;
+
+    assert T2 => (PFS = false);
+
+    assert T2 => (inhibit_count = 0);
+
+
+    eq T4: bool = (false -> (pre(s_Inhibited) and pre(inhibit_count) >= 2));
+
+    assert T4  => s_Listening;
+
+
+    eq T3: bool = (false -> (pre(s_Pilot_Flying) and riseOSPF));
+
+    assert T3  => s_Inhibited;
+
+    assert T3 => (PFS = false);
+
+    assert T3 => (inhibit_count = 0);
+
+
+
+    eq Do_s_Inhibited : bool = (false -> pre(s_Inhibited) and not (T4));
+
+    assert Do_s_Inhibited => s_Inhibited;
+
+    assert Do_s_Inhibited => (inhibit_count = pre(inhibit_count) + 1);
+
+
+    assert true -> (not (T2 or T3 or Do_s_Inhibited or T2 or T3 or Do_s_Inhibited) => (inhibit_count = pre(inhibit_count)));
+
+    assert true -> (not (T2 or T3 or T6 or T1) => (PFS = pre(PFS)));
+
+    assert true -> (not (T6 or T1 or T2 or T4 or T3 or Do_s_Inhibited) => 
+                 (s_Stop = pre(s_Stop)) and
+                 (s_Listening = pre(s_Listening)) and
+                 (s_Start = pre(s_Start)) and
+                 (s_Inhibited = pre(s_Inhibited)) and
+                 (s_Pilot_Flying = pre(s_Pilot_Flying)));
+
+    lemma "valid_state" : s_Stop or s_Listening or s_Start or s_Inhibited or s_Pilot_Flying;
+
+--Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Pilot_Flying_Side_Logic.txt
+       lemma "Stop_Unreachable": not s_Stop;
+      lemma "Inhibit_Count_Bounded" :s_Inhibited => (inhibit_count >= 0 and inhibit_count <= 2);
+      lemma "PFS_State_Consistency" : (not s_Start => (PFS = s_Pilot_Flying));
+      
+ 
+ **};
+  end Pilot_Flying_Side_Logic.Pilot_Flying_Side_Logic_Impl;
+  
+  system Side
+    features
+      OSPF: in data port Base_Types::Boolean;
+      PFS: out data port Base_Types::Boolean;
+      TS: in data port Base_Types::Boolean;
+    annex agree{** 
+ --Inserted from C:\RW_APPS\git\smaccm-sosite\SoS Examples\Pilot Flying\EA\contracts\Pilot_Flying.Side.txt
+      eq ttF: bool = Agree_Nodes.tF(2);
+       
+      guarantee "PFS_Correct" : true ->   
+        (PFS = if ttF then
+		              Get_Property(this, QS_Properties::Primary_Side)
+	             else if (pre(PFS) and Agree_Nodes.Rise(OSPF)) then
+		              false -- when the other side is observed becoming PFS
+	             else if (Agree_Nodes.Duration(not ttF and not(pre(PFS))) > 3 and Agree_Nodes.Rise(TS)) then
+		              true --  when TS is pressed while listening
+	             else pre(PFS));         	
+ 
+ **};
+  end Side;
+  
+  system implementation Side.Side_Impl
+    subcomponents
+      PFSL: system Pilot_Flying_Side_Logic.Pilot_Flying_Side_Logic_Impl;
+      riseOSPF: system Signals::Rise.Rise_Impl;
+      riseTS: system Signals::Rise.Rise_Impl;
+    connections
+      OSPF_to_riseOSPF: port OSPF -> riseOSPF.I;
+      TS_to_riseTS: port TS -> riseTS.I;
+      PFSL_to_PFS: port PFSL.PFS -> PFS;
+      riseOSPF_to_PFSL: port riseOSPF.O -> PFSL.riseOSPF;
+      riseTS_to_PFSL: port riseTS.O -> PFSL.riseTS;
+  end Side.Side_Impl;
+private
+end Pilot_Flying;

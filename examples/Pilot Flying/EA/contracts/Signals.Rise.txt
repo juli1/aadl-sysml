@@ -1,0 +1,6 @@
+        eq ttF: bool = Agree_Nodes.tF(2);
+          
+      guarantee "Rise_Correct" : O = if ttF then false else (false -> not pre(I) and I);   
+                                
+ 
+ 

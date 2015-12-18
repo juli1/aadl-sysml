@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EA Import
+Bundle-SymbolicName: com.rockwellcollins.atc.sysml2aadl.ea21;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: Rockwell Collins Inc.
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.rockwellcollins.atc.sysml2aadl.ea21.AADL_Elements,
+ com.rockwellcollins.atc.sysml2aadl.ea21.AADL_Elements.impl,
+ com.rockwellcollins.atc.sysml2aadl.ea21.AADL_Elements.util,
+ com.rockwellcollins.atc.sysml2aadl.ea21.SysML,
+ com.rockwellcollins.atc.sysml2aadl.ea21.SysML.impl,
+ com.rockwellcollins.atc.sysml2aadl.ea21.SysML.util,
+ com.rockwellcollins.atc.sysml2aadl.ea21.UML,
+ com.rockwellcollins.atc.sysml2aadl.ea21.UML.impl,
+ com.rockwellcollins.atc.sysml2aadl.ea21.UML.util,
+ com.rockwellcollins.atc.sysml2aadl.ea21.thecustomprofile,
+ com.rockwellcollins.atc.sysml2aadl.ea21.thecustomprofile.impl,
+ com.rockwellcollins.atc.sysml2aadl.ea21.thecustomprofile.util
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;bundle-version="2.10.1",
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.xtext.aadl2;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.15",
+ org.osate.annexsupport;bundle-version="1.0.0",
+ org.eclipse.emf.transaction,
+ org.eclipse.ui.ide;bundle-version="3.10.0"
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: com.rockwellcollins.atc.sysml2aadl.Activator
+Import-Package: org.eclipse.ui.console

@@ -1,0 +1,5 @@
+      lemma "Stop_Unreachable": not s_Stop;
+      lemma "Inhibit_Count_Bounded" :s_Inhibited => (inhibit_count >= 0 and inhibit_count <= 2);
+      lemma "PFS_State_Consistency" : (not s_Start => (PFS = s_Pilot_Flying));
+      
+ 

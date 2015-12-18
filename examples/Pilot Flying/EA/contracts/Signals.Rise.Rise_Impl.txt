@@ -1,0 +1,6 @@
+ 
+    assert "O Initially False" : (O = false) -> true;
+    
+    lemma "Stop Unreachable" : not s_Stop;
+    
+ 
