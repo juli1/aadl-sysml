@@ -99,9 +99,23 @@ public class Action implements IWorkbenchWindowActionDelegate {
 	
 	public String findLocationOfContracts(String filePath)
 	{
-		int intbackslashindex = filePath.lastIndexOf("\\");
-		String pathName = filePath.substring(0, intbackslashindex);
-		String filePathName = pathName + "\\contracts";
+		int intbackslashindex;
+		String pathName;
+		String filePathName;
+		
+		if (org.eclipse.jface.util.Util.isWindows())
+		{
+			intbackslashindex = filePath.lastIndexOf("\\");
+			pathName = filePath.substring(0, intbackslashindex);
+			filePathName = pathName + "\\contracts";
+		}
+		else
+		{
+			intbackslashindex = filePath.lastIndexOf("/");
+			pathName = filePath.substring(0, intbackslashindex);
+			filePathName = pathName + "/contracts";
+		}
+
 		
 		File f = new File(filePathName);
 		System.out.println(filePathName);
@@ -117,13 +131,28 @@ public class Action implements IWorkbenchWindowActionDelegate {
 	
 	public String findFolderLocationOfContracts(String filePath)
 	{
+		int intbackslashindex;
+		String pathName;
+		String filePathName;
+		
 		if (filePath == null)
 		{
 			return null;
 		}
-		int intbackslashindex = filePath.lastIndexOf("\\");
-		String pathName = filePath.substring(0, intbackslashindex);
-		String filePathName = pathName;
+		
+		if (org.eclipse.jface.util.Util.isWindows())
+		{
+		 intbackslashindex = filePath.lastIndexOf("\\");
+		 pathName = filePath.substring(0, intbackslashindex);
+		 filePathName = pathName;
+		}
+		else
+		{
+			 intbackslashindex = filePath.lastIndexOf("/");
+			 pathName = filePath.substring(0, intbackslashindex);
+			 filePathName = pathName;
+		}
+		
 		return filePathName;	
 	}
 	
